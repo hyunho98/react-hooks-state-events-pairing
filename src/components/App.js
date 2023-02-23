@@ -1,18 +1,28 @@
+import React, { useState } from "react";
 import video from "../data/video.js";
+import Header from "./Header";
+import CommentSection from "./CommentSection";
 
 function App() {
+  const [comments, setComments] = useState(video.comments)
   console.log("Here's your data:", video);
+
+  function toggleComments() {
+    comments ? setComments(null) : setComments(video.comments)
+  }
 
   return (
     <div className="App">
       <iframe
         width="919"
         height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        src={video.embedUrl}
         frameBorder="0"
         allowFullScreen
-        title="Thinking in React"
+        title={video.title}
       />
+      <Header video={video} onHideComments={toggleComments}/>
+      <CommentSection comments={comments} />
     </div>
   );
 }
